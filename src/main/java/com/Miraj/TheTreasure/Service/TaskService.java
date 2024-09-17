@@ -2,10 +2,14 @@ package com.Miraj.TheTreasure.Service;
 
 import com.Miraj.TheTreasure.Model.Task;
 import com.Miraj.TheTreasure.Repository.Repository;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TaskService {
@@ -32,8 +36,13 @@ public class TaskService {
         return repository.save(task);
     }
 
-    public void deleteTask(int taskId) {
-        repository.findById(taskId).orElseThrow(() -> new RuntimeException("No task found"));
-        repository.deleteById(taskId);
+    public Boolean deleteTask(int taskId) {
+        Optional<Task> task1 = repository.findById(taskId);
+        if (task1 != null) {
+            repository.deleteById(taskId);
+            return true;
+        }else{
+            return false;
+        }
     }
 }
