@@ -43,12 +43,18 @@ public class TaskController {
     }
 
     @PutMapping("/updateTask/{taskId}")
-    public void updateTask(@PathVariable int taskId,@RequestBody Task task){
-        service.updateTask(taskId,task);
+    public ResponseEntity<?> updateTask(@PathVariable int taskId,@RequestBody Task task){
+        Task task1 = service.updateTask(taskId,task);
+        if (task1 != null) {
+            return new ResponseEntity<>(task,HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>("task not found", HttpStatus.NOT_FOUND);
+        }
     }
 
     @DeleteMapping("/deleteTask/{taskId}")
-    public void deleteTask(@PathVariable int taskId){
+    public ResponseEntity<?> deleteTask(@PathVariable int taskId){
         service.deleteTask(taskId);
+        return new ResponseEntity<>("The task has been deleted", HttpStatus.OK);
     }
 }
