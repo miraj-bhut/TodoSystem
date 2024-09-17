@@ -2,12 +2,10 @@ package com.Miraj.TheTreasure.Service;
 
 import com.Miraj.TheTreasure.Model.Task;
 import com.Miraj.TheTreasure.Repository.Repository;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,11 +25,16 @@ public class TaskService {
         return repository.findById(taskId).orElse(null);
     }
 
-    public Task addTask(Task task) {
-        return repository.save(task);
+    public Task addTask(Task task) throws Exception {
+        Date today = new Date(System.currentTimeMillis());
+        if(task.getDeadline().before(today)){
+            throw new Exception("The dealine is not valid.");
+        }else{
+            return repository.save(task);
+        }
     }
 
-    public Task updateTask(int taskId,Task task){
+    public Task updateTask(int taskId,Task task) throws Exception {
         repository.findById(taskId).orElse(addTask(task));
         return repository.save(task);
     }

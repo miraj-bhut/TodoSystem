@@ -43,7 +43,7 @@ public class TaskController {
     }
 
     @PutMapping("/updateTask/{taskId}")
-    public ResponseEntity<?> updateTask(@PathVariable int taskId,@RequestBody Task task){
+    public ResponseEntity<?> updateTask(@PathVariable int taskId,@RequestBody Task task) throws Exception {
         Task task1 = service.updateTask(taskId,task);
         if (task1 != null) {
             return new ResponseEntity<>(task,HttpStatus.OK);
