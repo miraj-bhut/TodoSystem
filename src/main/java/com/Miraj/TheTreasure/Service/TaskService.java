@@ -1,7 +1,7 @@
 package com.Miraj.TheTreasure.Service;
 
 import com.Miraj.TheTreasure.Model.Task;
-import com.Miraj.TheTreasure.Repository.Repository;
+import com.Miraj.TheTreasure.Repository.repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +16,7 @@ public class TaskService {
 
 
     @Autowired
-    Repository repository;
+    repository repository;
     public List<Task> getAllTasks() {
         return repository.findAll();
     }

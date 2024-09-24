@@ -1,6 +1,8 @@
 package com.Miraj.TheTreasure.Controller;
 
 import com.Miraj.TheTreasure.Model.Task;
+import com.Miraj.TheTreasure.Model.Users;
+import com.Miraj.TheTreasure.Service.MyUserDetailService;
 import com.Miraj.TheTreasure.Service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,11 +12,22 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/tasks")
 public class TaskController {
 
     @Autowired
     TaskService service;
+
+    @Autowired
+    MyUserDetailService userService;
+
+    @PostMapping("/addUser")
+    public ResponseEntity<?> addUser(@RequestBody Users users){
+        Boolean isAdded = userService.addUser(users);
+        if(isAdded)
+            return new ResponseEntity<>(isAdded,HttpStatus.OK);
+        else
+            return new ResponseEntity<>(false,HttpStatus.BAD_REQUEST);
+    }
 
     @GetMapping("/getAllTask")
     public ResponseEntity<List<Task>> getAllTasks(){
