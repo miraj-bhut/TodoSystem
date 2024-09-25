@@ -4,12 +4,15 @@ import com.Miraj.TheTreasure.Model.Task;
 import com.Miraj.TheTreasure.Model.Users;
 import com.Miraj.TheTreasure.Service.MyUserDetailService;
 import com.Miraj.TheTreasure.Service.TaskService;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 public class TaskController {
@@ -30,11 +33,13 @@ public class TaskController {
     }
 
     @GetMapping("/getAllTask")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<List<Task>> getAllTasks(){
         return new ResponseEntity<>(service.getAllTasks(), HttpStatus.OK);
     }
 
     @GetMapping("/getTask/{taskId}")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<Task> getTaskById(@PathVariable int taskId){
         Task task = service.getTaskById(taskId);
 
@@ -46,6 +51,7 @@ public class TaskController {
     }
 
     @PostMapping("/addTask")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> addTask(@RequestBody Task task){
         try{
             Task task1 = service.addTask(task);
@@ -56,6 +62,7 @@ public class TaskController {
     }
 
     @PutMapping("/updateTask/{taskId}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> updateTask(@PathVariable int taskId,@RequestBody Task task) throws Exception {
         Task task1 = service.updateTask(taskId,task);
         if (task1 != null) {
@@ -66,6 +73,7 @@ public class TaskController {
     }
 
     @DeleteMapping("/deleteTask/{taskId}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> deleteTask(@PathVariable int taskId){
         Boolean isDeleted = service.deleteTask(taskId);
         if(isDeleted){
