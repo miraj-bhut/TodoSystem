@@ -19,23 +19,6 @@
 - **Build Tool:** Maven
 - **Version Control:** Git
 
-## Project Structure
-
-TheTreasure/
-├── src/
-│   ├── main/
-│   │   ├── java/
-│   │   │   └── com/
-│   │   │       └── example/    # Contains all Java source files
-│   │   └── resources/          # Contains application.properties and other configuration files
-│   └── test/                   # Contains unit and integration tests
-├── .gitignore
-├── LICENSE
-├── pom.xml                     # Maven build file
-├── mvnw                        # Maven wrapper
-├── README.md
-└── target/                      # Compiled output files
-
 ## Prerequisites
 
 Before running the project, ensure you have the following installed:
