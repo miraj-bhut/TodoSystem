@@ -34,7 +34,7 @@ TheTreasure/
 ├── pom.xml                     # Maven build file
 ├── mvnw                        # Maven wrapper
 ├── README.md
-└── target/                     # Compiled output files
+└── target/                      # Compiled output files
 
 ## Prerequisites
 
